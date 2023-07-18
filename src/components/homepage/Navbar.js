@@ -5,7 +5,6 @@ function Navbar({onClick, activeTab}) {
     
     const handleActiveTab = (event) => {
       const value = event.target.textContent;
-      // console.log(event.target.textContent);
     if (onClick) {
       onClick(value);
     }

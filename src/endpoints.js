@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 
 
 var analytifyBaseURL = "https://localhost:7242/analytify";
@@ -260,8 +261,8 @@ export const searchPage = (page) => {
 }
 
 export const publicFeed = (pageId) => {
-    return axios.get(atreemoBaseURL + `/Call?query=/${pageId}/feed?fields=full_picture,created_time,shares,comments.summary(true).limit(50){created_time,message},likes.summary(true).limit(50),message,reactions,insights.metric(post_reactions_by_type_total)`)
-        .then((response) => { console.log(`Feed returned!`, response.data); return response.data })
+    return axios.get(atreemoBaseURL + `/Call?query=/${pageId}/feed?fields=full_picture,created_time,message,shares,comments.summary(total_count).limit(50){created_time,message,reactions.type(LIKE).limit(0).summary(total_count).as(like),reactions.type(LOVE).limit(0).summary(total_count).as(love),reactions.type(WOW).limit(0).summary(total_count).as(wow),reactions.type(SAD).limit(0).summary(total_count).as(sad),reactions.type(ANGRY).limit(0).summary(total_count).as(angry),reactions.type(HAHA).limit(0).summary(total_count).as(haha)},reactions.type(LIKE).limit(0).summary(total_count).as(like),reactions.type(LOVE).limit(0).summary(total_count).as(love),reactions.type(WOW).limit(0).summary(total_count).as(wow),reactions.type(SAD).limit(0).summary(total_count).as(sad),reactions.type(ANGRY).limit(0).summary(total_count).as(angry),reactions.type(HAHA).limit(0).summary(total_count).as(haha)`)
+        .then((response) => { console.log(`Feed returned!`, response.data); response.data.PageId = pageId;  return response.data })
         .catch((error) => {
             console.error('Error searching:', error.message);
         })
@@ -280,7 +281,7 @@ export const deepAddComments = async (post) => {
                   let comment = await getComment(commentData.id);
                   if (!comment) {
                     await createComment(
-                      commentData.id,
+                      commentData.id ? commentData.id : uuidv4(),
                       commentData.message,
                       commentData.like.summary.total_count,
                       commentData.love.summary.total_count,

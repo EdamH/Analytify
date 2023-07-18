@@ -1,0 +1,85 @@
+.elevated-container {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    width: 70%;
+    margin: auto;
+    align-items: center;
+}
+
+.page-items{
+    width: 80%;
+}
+
+.search-input {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 70%;
+    padding: 8px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.search-input:hover,
+.search-input:focus {
+    border-color: #6366F1;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+.rounded-button {
+    border-radius: 4px;
+    padding: 8px 16px;
+    background-color: #6366F1;
+    color: #fff;
+    border: none;
+    margin-top: 8px;
+}
+
+.plus-button {
+    border-radius: 0 4px 4px 0;
+    padding: 8px 16px;
+    color: gray;
+    border: none;
+    background-color: transparent;
+    border-left: 1px gray solid;
+    margin-left: 1px;
+    transition: all 0.3s ease-in-out;
+    height: 50px;
+}
+
+.plus-button:hover {
+    color: whitesmoke;
+    background-color: #6366F1;
+    border-left: 1px #6366F1 solid;
+}
+
+.plus-button>i {
+    transition: transform 0.3s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+}
+
+.plus-button:hover > i {
+    transform: scale(1.2) rotate(180deg)
+}
+
+.page-item {
+    border-radius: 4px;
+    align-items: center;
+    margin-top: 16px;
+    width: 100%;
+    justify-content: space-between;
+    box-shadow: rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em;
+    transition: all .3s ease-in-out;
+}
+
+.page-item:hover {
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    transform: scale(1.1);
+}
+
+.page-image {
+    height: 50px;
+    width: auto;
+    margin-right: 8px;
+    border-radius: 4px 0 0 4px;
+}

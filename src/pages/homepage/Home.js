@@ -2,6 +2,7 @@ import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css"; 
 import 'primeicons/primeicons.css';  
 import '../../App.css';
+import '../../components/homepage/SearchContainer.css'
 
 import SidebarComp from "../../components/homepage/SidebarComp";
 import Navbar from "../../components/homepage/Navbar";
@@ -10,6 +11,8 @@ import PieChart from "../../components/homepage/PieChart";
 import HorizontalBar from "../../components/homepage/HorizontalBar";
 import LineChart from "../../components/homepage/LineChart";
 import DoughnutChart from "../../components/homepage/DoughnutChart";
+import SearchContainer from "../../components/homepage/SearchContainer";
+
 import * as endpoints from "../../endpoints";
         
 import React, { useEffect, useState } from 'react';
@@ -43,7 +46,7 @@ function Home() {
     
     fetchData();
   },[]);
-  console.log(accounts);
+  // console.log(accounts);
 
   // FETCH FEEDS =============================================================================================================
   const [feed, setFeed] = useState([]);
@@ -86,7 +89,7 @@ function Home() {
   }, [feed])
 
 
-  console.log('newfeed', feed);
+  // console.log('newfeed', feed);
   // FIGURE OUT SELECTED PAGE AND TAB
   const [selectedOption, setSelectedOption] = useState('');
   const [activeTab, setActiveTab] = useState("Feed");
@@ -123,7 +126,7 @@ function Home() {
     }
     
     
-    console.log('page:', currentPage)
+    // console.log('page:', currentPage)
   }, [selectedOption]);
 
   // FEED PAGINATION =======================================================================================================
@@ -165,27 +168,11 @@ function Home() {
 
   // ============================================================================================================
 
-  let [searchInput, setSearchInput] = useState('');
-  let [searchPages, setSearchPages] = useState([]);
-
-  const handleSearchInput = (event) => {
-    setSearchInput(event.target.value);
-  };
-  const handleButtonClick = async () => {
-    let data = await endpoints.searchPage(searchInput);
-    setSearchPages(data);
-  };
-  
-  const handlePageSelection = async (pageID) => {
-    endpoints.createPage(pageID, "React Did This", "-", 12)
-  }
-
-
   const testFunc = async () => {
     let x = await endpoints.getFeed(currentPage.id, 10, 0);
     // console.log("returned value: ",await endpoints.getFeed(currentPage.id, 10, 0)
   }
-
+  
   return (
     
   
@@ -242,7 +229,7 @@ function Home() {
                     shares={post.sharesNum?.count || 0}
 
                   />
-                  <h1>post.message</h1>
+                  <h1>{ post.imgAdd}</h1>
                   </div>
                   )
               )
@@ -260,34 +247,11 @@ function Home() {
           </div>
         )
       }
-
       {selectedOption === 'PLUS' &&
         (
-          <div className="d-flex justify-content-center align-items-center flex-column">
-            <label>
-              Search for a public page on Facebook:
-              <input
-                type="text"
-                onChange= {handleSearchInput}
-                
-              />
-              <button type="button" onClick={handleButtonClick}>Search</button>
-            </label>
-            {searchPages && 
-              (
-              <div className="d-flex flex-column">
-                {searchPages.map((e) => (
-                  <div className="d-flex">
-                    <img src={e.page_picture} style={{height: "50px", width: "auto"}} />
-                    <p>{e.PageName}</p>
-                    <button onClick={() => handlePageSelection(e.PageID)}>Select</button>
-                  </div>
-                  ))
-                }
-              </div>
-              )  
-            }
-          </div>
+        <SearchContainer
+          loggedInUser= {loggedInUser.id}
+        />
         ) 
       }
         {/* DASHBOARD */}
